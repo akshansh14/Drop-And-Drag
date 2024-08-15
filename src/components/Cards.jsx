@@ -1,61 +1,69 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Moveable from "react-moveable";
 
-const Cards = ({ id }) => {
-  const targetRef = useRef();
+const Cards = ({ id, cardRef }) => {
+  // const targetRef = useRef();
   // const targetRef = `id${id}`;
+
+    const [isReady, setIsReady] = useState(false);
+  
+    useEffect(() => {
+      if (cardRef.current) {
+        setIsReady(true);
+      }
+    }, [cardRef]);
+
 
   return (
     // <div className="relative w-full h-screen bg-gray-200 flex items-center justify-center">
     <div>
-      <div
-        ref={targetRef}
-        className="target bg-blue-400 text-white p-4 shadow-lg rounded-md cursor-pointer"
-        style={{
-          width: "160px",
-          height: "96px",
-        }}
-      >
-        Drag, Resize, Scale, Rotate Me {id}
-      </div>
+      {/* {
+        cardRef.current && ( */}
 
-      <Moveable
-        target={targetRef.current}
-        container={null}
-        origin={true}
-        edge={true}
-        draggable={true}
-        onDragStart={({ target }) => {
-          console.log("onDragStart", target);
-        }}
-        onDrag={({ target, transform }) => {
-          target.style.transform = transform;
-        }}
-        keepRatio={true}
-        resizable={true}
-        throttleResize={0}
-        onResizeStart={({ target }) => {
-          console.log("onResizeStart", target);
-        }}
-        onResize={({ target, width, height, delta }) => {
-          if (delta[0]) target.style.width = `${width}px`;
-          if (delta[1]) target.style.height = `${height}px`;
-        }}
-        onResizeEnd={({ target }) => {
-          console.log("onResizeEnd", target);
-        }}
-        scalable={true}
-        throttleScale={0}
-        onScale={({ target, transform }) => {
-          target.style.transform = transform;
-        }}
-        onRotate={({ target, transform }) => {
-          target.style.transform = transform;
-        }}
-        rotatable={true}
-        throttleRotate={0}
-        pinchable={true}
-      />
+      
+          <div
+          ref={cardRef}
+          className="target bg-blue-400 text-white p-4 shadow-lg rounded-md cursor-pointer"
+          style={{
+            width: "160px",
+            height: "96px",
+          }}
+        >
+          Drag, Resize, Scale, Rotate Me {id}
+        </div>
+
+
+        {isReady && (
+        <Moveable
+          target={cardRef.current}
+          container={null}
+          origin={true}
+          edge={true}
+          draggable={true}
+          onDrag={({ target, transform }) => {
+            target.style.transform = transform;
+          }}
+          keepRatio={true}
+          resizable={true}
+          onResize={({ target, width, height }) => {
+            target.style.width = `${width}px`;
+            target.style.height = `${height}px`;
+          }}
+          scalable={true}
+          onScale={({ target, transform }) => {
+            target.style.transform = transform;
+          }}
+          rotatable={true}
+          onRotate={({ target, transform }) => {
+            target.style.transform = transform;
+          }}
+          pinchable={true}
+        />
+      )}
+  
+
+        {/* )
+      } */}
     </div>
   );
 };
