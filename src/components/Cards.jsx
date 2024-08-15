@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { MdDelete, MdEdit } from "react-icons/md";
+import React, { useContext, useState } from "react";
+import {  MdEdit } from "react-icons/md";
 import Moveable from "react-moveable";
 import CardModal from "./CardModal";
 import { AppContext } from "../context/AppContext";
 
 const Cards = ({ id, cardRef }) => {
 
-
+// eslint-disable-next-line
   const [isEditing,setIsEditing]=useState(false)
   const[showmore,setShowmore]=useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  const {cardData,activeId ,deleteCard, setactiveId }=useContext(AppContext)
+  const {cardData,activeId , setactiveId }=useContext(AppContext)
   
    
     const openModal =()=>{
@@ -33,7 +33,7 @@ const Cards = ({ id, cardRef }) => {
   
 
   return (
-    <div onClick={handelclick} className="" >
+    <div onClick={handelclick} className={activeId===id ? (`z-40`):(`z-0`) } >
       <div
         ref={cardRef}
         className= {` target bg-white relative text-black border-2 shadow-lg rounded-md cursor-pointer  w-[200px] ${showmore ? (`scale-110`) : (`scale-100`) } `}
@@ -45,8 +45,7 @@ const Cards = ({ id, cardRef }) => {
               cardData[id].title ? (cardData[id].title):(<p>Title</p>)
             }
             </h1>
-          <div className="absolute left-2 z-50" onClick={()=>openModal()}><MdEdit /></div>
-          <div className="absolute right-2 z-50" onClick={()=>deleteCard()}><MdDelete /></div>
+          <div className="absolute right-2 z-50" onClick={()=>openModal()}><MdEdit /></div>
         </div>
          <div className="my-2 px-3 min-h-[230px]">
          <div className="text-sm ">

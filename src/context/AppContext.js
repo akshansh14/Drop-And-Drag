@@ -6,6 +6,7 @@ import React from "react";
 export const AppContext = createContext();
 
 //data is taken from this url
+// eslint-disable-next-line
 const baseUrl = "https://codehelp-apis.vercel.app/api/get-blogs";
 export default function AppContextProvider({children}){
     

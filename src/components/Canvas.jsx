@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Cards from "./Cards";
 import { AppContext } from "../context/AppContext";
 
 const Canvas = () => {
   
-  const {cardData,setCardData,count,setCount , setactiveId }=useContext(AppContext)
+  const {cardData,setCardData,count,setCount  }=useContext(AppContext)
 
   const addCard = () => {
     setCount(count+1)
     setCardData((prev) => [...prev, { id: count, ref: React.createRef() ,title:"" , description: ""}]);
   };
 
-  const handelclick=()=>{
-    setactiveId(null)
-  }
+
 
   return (
       <div className="relative w-full h-screen overflow-x-hidden  bg-white ">
