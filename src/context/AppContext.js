@@ -5,17 +5,9 @@ export const AppContext = createContext();
 
 export default function AppContextProvider({children}){
    
-    const [cardData,setCardData]=useState({title:"" , desccription:""})
-    const [isModalOpen, setIsModalOpen] = useState(false);
-   
-    const openModal =()=>{
-        setIsModalOpen(true);
-        console.log(isModalOpen)
-      }
     
-      const closeModal =()=>{
-        setIsModalOpen(false);
-      }
+    const [cardData,setCardData]=useState([])
+   
     
 
 
@@ -24,10 +16,7 @@ export default function AppContextProvider({children}){
     const Value={
         cardData,
         setCardData,
-        openModal,
-        closeModal,
-        isModalOpen,
-        setIsModalOpen
+       
         }
 
     return <AppContext.Provider value={Value}>

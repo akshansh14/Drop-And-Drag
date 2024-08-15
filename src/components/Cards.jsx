@@ -18,10 +18,19 @@ const Cards = ({ id, cardRef }) => {
 
   //Card Data
   const [isEditing,setIsEditing]=useState(false)
- const {openModal,closeModal,cardData,isModalOpen}=useContext(AppContext)
+ const {cardData}=useContext(AppContext)
  
 
-
+ const [isModalOpen, setIsModalOpen] = useState(false);
+   
+    const openModal =()=>{
+        setIsModalOpen(true);
+        console.log(isModalOpen)
+      }
+    
+      const closeModal =()=>{
+        setIsModalOpen(false);
+      }
 
 
   
@@ -35,15 +44,15 @@ const Cards = ({ id, cardRef }) => {
         <div className="min-h-[40px] bg-black text-white py-2 flex z-10 justify-center items-center">
           <h1 className="text-xl ">
             {
-              cardData.title ? (cardData.title):(<p>Title</p>)
+              cardData[id].title ? (cardData[id].title):(<p>{id}</p>)
             }
             </h1>
-          <div className="absolute right-2" onClick={()=>openModal()}><MdEdit /></div>
+          <div className="absolute right-2 z-50" onClick={()=>openModal()}><MdEdit /></div>
         </div>
          <div className="my-2">
          <p>
           {
-          cardData.title ? (cardData.title):(<p>Description</p>)
+          cardData[id].title ? (cardData[id].description):(<p>Description</p>)
           }
           </p>
          </div>
@@ -80,7 +89,11 @@ const Cards = ({ id, cardRef }) => {
       )}
 
 
-        <CardModal/>
+        <CardModal id={id}
+        openModal={openModal}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        />
 
     
     </div>

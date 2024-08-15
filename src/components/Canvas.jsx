@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cards from "./Cards";
+import { AppContext } from "../context/AppContext";
 
 const Canvas = () => {
-  const [cardsArr, setCardsArr] = useState([]);
+  
+  const {cardData,setCardData}=useContext(AppContext)
   const addCard = () => {
-    setCardsArr((prev) => [...prev, { id: prev.length, ref: React.createRef() }]);
+    setCardData((prev) => [...prev, { id: prev.length, ref: React.createRef() ,title:"" , description: ""}]);
   };
-
+console.log(cardData)
 
 useEffect(()=>{
   
@@ -18,8 +20,7 @@ useEffect(()=>{
       <button onClick={addCard} className="m-4 p-2 bg-blue-500 text-white">
         Add Card
       </button>
-      {console.log(cardsArr)}
-      {cardsArr.map((card ) => (
+      {cardData.map((card ,index) => (
         <Cards key={card.id} id={card.id} cardRef={card.ref} />
 
     ))}
