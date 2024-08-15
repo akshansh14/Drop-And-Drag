@@ -1,39 +1,57 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { MdEdit } from "react-icons/md";
 import Moveable from "react-moveable";
+import CardModal from "./CardModal";
+import { AppContext } from "../context/AppContext";
 
 const Cards = ({ id, cardRef }) => {
-  // const targetRef = useRef();
-  // const targetRef = `id${id}`;
 
-    const [isReady, setIsReady] = useState(false);
+  //ref error
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    if (cardRef.current) {
+      setIsReady(true);
+    }
+  }, [cardRef]);
+ 
+
+  //Card Data
+  const [isEditing,setIsEditing]=useState(false)
+ const {openModal,closeModal,cardData,isModalOpen}=useContext(AppContext)
+ 
+
+
+
+
   
-    useEffect(() => {
-      if (cardRef.current) {
-        setIsReady(true);
-      }
-    }, [cardRef]);
-
 
   return (
-    // <div className="relative w-full h-screen bg-gray-200 flex items-center justify-center">
-    <div>
-      {/* {
-        cardRef.current && ( */}
-
-      
-          <div
-          ref={cardRef}
-          className="target bg-blue-400 text-white p-4 shadow-lg rounded-md cursor-pointer"
-          style={{
-            width: "160px",
-            height: "96px",
-          }}
-        >
-          Drag, Resize, Scale, Rotate Me {id}
+    <div onClick={()=>setIsEditing(true)}>
+      <div
+        ref={cardRef}
+        className="target bg-white relative  text-black border-2 shadow-lg rounded-md cursor-pointer  w-[200px]  min-h-[200px]"
+      >
+        <div className="min-h-[40px] bg-black text-white py-2 flex z-10 justify-center items-center">
+          <h1 className="text-xl ">
+            {
+              cardData.title ? (cardData.title):(<p>Title</p>)
+            }
+            </h1>
+          <div className="absolute right-2" onClick={()=>openModal()}><MdEdit /></div>
         </div>
+         <div className="my-2">
+         <p>
+          {
+          cardData.title ? (cardData.title):(<p>Description</p>)
+          }
+          </p>
+         </div>
 
+        
+      </div>
 
-        {isReady && (
+      {isReady && (
         <Moveable
           target={cardRef.current}
           container={null}
@@ -60,10 +78,11 @@ const Cards = ({ id, cardRef }) => {
           pinchable={true}
         />
       )}
-  
 
-        {/* )
-      } */}
+
+        <CardModal/>
+
+    
     </div>
   );
 };
