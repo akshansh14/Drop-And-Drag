@@ -1,12 +1,12 @@
 import './App.css';
-import Cards from './components/Cards';
+import Canvas from './components/Canvas';
 import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div className="w-screen ">
   <Navbar/>
-  <Cards/>
+  <Canvas/>
 
     </div>
   )
