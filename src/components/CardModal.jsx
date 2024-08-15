@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 
 const CardModal = ({ id,closeModal,openModal,isModalOpen }) => {
-    console.log(id)
   const { cardData, setCardData } =useContext(AppContext);
 
   const [data, setData] = useState({ title: "", description: "" });
